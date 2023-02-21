@@ -43,7 +43,7 @@ export const App = ( elementId ) => {
         displayTodos();
         event.target.value = ''; 
     } );
-
+    
     // Marca como hecho en la lista de todos
     todoListUl.addEventListener( 'click', ( e ) => {
         const element = e.target.closest( '[data-id]' );
