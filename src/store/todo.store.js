@@ -1,6 +1,6 @@
 import { Todo } from "../todos/models/todo.model";
 
-const Filters = {
+export const Filters = {
     All: 'All',
     Completed: 'Completed',
     Pending: 'Pending'
@@ -8,13 +8,7 @@ const Filters = {
 
 
 const state = {
-    todos: [
-        new Todo('Piedra del alma'),
-        new Todo('Piedra del infinito'),
-        new Todo('Piedra del tiempo'),
-        new Todo('Piedra del poder'),
-        new Todo('Piedra del realidad'),
-    ],
+    todos: [],
     filter: Filters.All,
 };
 
@@ -56,6 +50,8 @@ const getTodos = ( filter = Filters.All ) => {
         default:
             throw new Error( `Option ${ filter } is not valid.` );
     }
+    saveStateToLocalStorage();
+    
 };
 
 const addTodo = ( description ) => {
