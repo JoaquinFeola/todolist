@@ -4,6 +4,7 @@ import { Todo } from './models/todo.model';
 import { renderTodos } from './use-cases';
 
 const ElementIdDs = {
+    ClearCompleted: '.clear-completed',
     TodoList: '.todo-list',
     NewTodoInput: '#new-todo-input',
 };
@@ -33,6 +34,9 @@ export const App = ( elementId ) => {
     // referencias html
     const newDescriptionInput = document.querySelector( ElementIdDs.NewTodoInput );
     const todoListUl = document.querySelector( ElementIdDs.TodoList );
+    const clearCompletedButton = document.querySelector( ElementIdDs.ClearCompleted );
+
+
     // listeners
     newDescriptionInput.addEventListener( 'keyup', ( event ) => {
             
@@ -49,18 +53,25 @@ export const App = ( elementId ) => {
         const element = e.target.closest( '[data-id]' );
         const elementDataId = element.getAttribute( 'data-id' );
         todoStore.toggleTodo( elementDataId );
-        displayTodos()
+        displayTodos();
+
     } );
 
     // Elimina el todo de la lista
     todoListUl.addEventListener( 'click', ( e ) => {
+        const isDestroyElement = e.target.className === 'destroy';
         const element = e.target.closest( '[data-id]' );
-        const elementId = element.getAttribute( 'data-id' );
+        if ( !element || !isDestroyElement ) return;
 
-        if ( e.target.className == 'destroy' )
-        {
-            todoStore.deleteTodo( elementId )
-            displayTodos()
-        }
+        todoStore.deleteTodo( element.getAttribute('data-id') );
+        displayTodos();
     } );
+
+    // Elimina todos los todos compeltados de la lsita
+    clearCompletedButton.addEventListener( 'click', () => {
+        todoStore.deleteCompleted();
+        displayTodos()
+    } )
+
+
 };  
