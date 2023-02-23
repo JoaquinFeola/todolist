@@ -4,8 +4,6 @@ import html from './app.html?raw';
 import { Todo } from './models/todo.model';
 import { renderTodos, renderPendingTodos } from './use-cases';
 
-
-
 const ElementIdDs = {
     ClearCompleted: '.clear-completed',
     TodoList: '.todo-list',
@@ -47,7 +45,6 @@ export const App = ( elementId ) => {
     const todoListUl = document.querySelector( ElementIdDs.TodoList );
     const clearCompletedButton = document.querySelector( ElementIdDs.ClearCompleted );
     const filtersLi = document.querySelectorAll( ElementIdDs.TodoFilters );
-
 
     // listeners
     newDescriptionInput.addEventListener( 'keyup', ( event ) => {
